@@ -24,24 +24,55 @@ public class produtosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<produtos> findbyid(@PathVariable Long id){
+    public ResponseEntity<produtos> findbyid(@PathVariable Long id) {
         Optional<produtos> produtos = this.repository.findById(id);
 
-        if (produtos.isPresent()){
+        if (produtos.isPresent()) {
             return ResponseEntity.ok(produtos.get());
         }
-return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
-@PostMapping
-    public  ResponseEntity<produtos> create(@RequestBody  produtosRequestDTO produtosDTO)
-    {
-     produtos produtos = new produtos();
-     produtos.setNome(produtosDTO.nome());
-     produtos.setCategoria(produtosDTO.categoria());
 
-     this.repository.save(produtos);
-     return  ResponseEntity.ok(produtos);
+    @PostMapping
+    public ResponseEntity<produtos> create(@RequestBody produtosRequestDTO produtosDTO) {
+        produtos produtos = new produtos();
+        produtos.setNome(produtosDTO.nome());
+        produtos.setCategoria(produtosDTO.categoria());
+
+        this.repository.save(produtos);
+        return ResponseEntity.ok(produtos);
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<produtos> update(@PathVariable Long id,
+                                           @RequestBody produtosRequestDTO produtoDTO) {
+
+
+        Optional<produtos> produtos = this.repository.findById(id);
+
+        if (produtos.isPresent()) {
+
+            produtos.get().setNome(produtoDTO.nome());
+            produtos.get().setCategoria(produtoDTO.categoria());
+            this.repository.save(produtos.get());
+
+            return ResponseEntity.ok(produtos.get());
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<produtos> delete(@PathVariable Long id) {
+        Optional<produtos> produtos = this.repository.findById(id);
+
+        if (produtos.isPresent()) {
+           this.repository.delete(produtos.get());
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 }
