@@ -22,6 +22,18 @@ public class produtos {
     @Column(precision = 10, scale = 2)
     private BigDecimal preco;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private categoria categoria;
+
+    public techacademic4.ecomerce.Domain.categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(techacademic4.ecomerce.Domain.categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public BigDecimal getPreco() {
         return preco;
     }
