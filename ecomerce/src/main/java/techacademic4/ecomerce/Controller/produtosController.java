@@ -38,6 +38,7 @@ public class produtosController {
         produtos produtos = new produtos();
         produtos.setNome(produtosDTO.nome());
         produtos.setImagem(produtosDTO.imagem());
+        produtos.setPreco(produtosDTO.preco());
 
         this.repository.save(produtos);
         return ResponseEntity.ok(produtos);
@@ -55,6 +56,7 @@ public class produtosController {
 
             produtos.get().setNome(produtoDTO.nome());
             produtos.get().setImagem(produtoDTO.imagem());
+            produtos.get().setPreco(produtoDTO.preco());
             this.repository.save(produtos.get());
 
             return ResponseEntity.ok(produtos.get());

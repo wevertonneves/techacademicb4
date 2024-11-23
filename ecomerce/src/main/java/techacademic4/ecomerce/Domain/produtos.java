@@ -2,6 +2,8 @@ package techacademic4.ecomerce.Domain;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 
 @Entity
 @Table(name = "produtos")
@@ -16,6 +18,17 @@ public class produtos {
     private String nome;
 
     private String imagem;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal preco;
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
 
     public Long getId() {
         return id;

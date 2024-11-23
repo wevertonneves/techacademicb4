@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/produtos")  // Ajuste para sua API
-                        .allowedOrigins("http://localhost:5174"); // Permite acesso da origem especificada
+                        .allowedOrigins("http://localhost:5173"); // Permite acesso da origem especificada
             }
         };
     }
