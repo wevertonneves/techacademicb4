@@ -2,8 +2,10 @@ package techacademic4.ecomerce.Domain;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "produtos")
+
 public class produtos {
 
 
@@ -13,7 +15,7 @@ public class produtos {
 
     private String nome;
 
-    private String categoria;
+    private String imagem;
 
     public Long getId() {
         return id;
@@ -31,11 +33,11 @@ public class produtos {
         this.nome = nome;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getImagem() {
+        return imagem;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

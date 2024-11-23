@@ -37,7 +37,7 @@ public class produtosController {
     public ResponseEntity<produtos> create(@RequestBody produtosRequestDTO produtosDTO) {
         produtos produtos = new produtos();
         produtos.setNome(produtosDTO.nome());
-        produtos.setCategoria(produtosDTO.categoria());
+        produtos.setImagem(produtosDTO.imagem());
 
         this.repository.save(produtos);
         return ResponseEntity.ok(produtos);
@@ -54,7 +54,7 @@ public class produtosController {
         if (produtos.isPresent()) {
 
             produtos.get().setNome(produtoDTO.nome());
-            produtos.get().setCategoria(produtoDTO.categoria());
+            produtos.get().setImagem(produtoDTO.imagem());
             this.repository.save(produtos.get());
 
             return ResponseEntity.ok(produtos.get());
