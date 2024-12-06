@@ -15,8 +15,8 @@ public class Products {
     @Column(name = "name")
     private String nome;
 
-    @Column(name = "resumo")
-    private String resumo;
+    @Column(name = "descricao")
+    private String descricao;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -29,6 +29,14 @@ public class Products {
     private Category category;
 
     // Getters e Setters
+
+    public Integer getId() {
+        return id; // Método getter para o campo 'id'
+    }
+
+    public void setId(Integer id) {
+        this.id = id; // Método setter para o campo 'id'
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -46,12 +54,12 @@ public class Products {
         this.nome = nome;
     }
 
-    public String getResumo() {
-        return resumo;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
+    public void setResumo(String descricao) {
+        this.descricao = descricao;
     }
 
     public BigDecimal getPreco() {

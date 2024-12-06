@@ -2,7 +2,6 @@ package br.grupointegrado.movies.controller;
 
 import br.grupointegrado.movies.dto.ProductsRequestDTO;
 import br.grupointegrado.movies.model.Products;
-import br.grupointegrado.movies.model.Products;
 import br.grupointegrado.movies.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class ProductsController {
 
         Products product = new Products();
         product.setNome(dto.nome());
-        product.setResumo(dto.resumo());
+        product.setResumo(dto.descricao());
         product.setImageUrl(dto.imageUrl());
         product.setPreco(dto.preco());
 
@@ -66,7 +65,7 @@ public class ProductsController {
                 .orElseThrow(() -> new IllegalArgumentException("Produto não foi encontrado"));
 
         product.setNome(dto.nome());
-        product.setResumo(dto.resumo());
+        product.setResumo(dto.descricao());
         product.setImageUrl(dto.imageUrl());
         product.setPreco(dto.preco());
 
