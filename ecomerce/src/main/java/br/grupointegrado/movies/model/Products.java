@@ -26,7 +26,7 @@ public class Products {
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
+    private Category category; // Relacionamento com a entidade Category
 
     // Getters e Setters
 
@@ -58,7 +58,8 @@ public class Products {
         return descricao;
     }
 
-    public void setResumo(String descricao) {
+    // Alterei para 'setDescricao', já que o campo é a descrição do produto
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
@@ -68,5 +69,14 @@ public class Products {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    // O setCategory só é necessário se você for setar explicitamente a categoria do produto
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -1,7 +1,9 @@
 package br.grupointegrado.movies.controller;
 
 import br.grupointegrado.movies.dto.ProductsRequestDTO;
+import br.grupointegrado.movies.model.Category;
 import br.grupointegrado.movies.model.Products;
+import br.grupointegrado.movies.repository.CategoryRepository;
 import br.grupointegrado.movies.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ public class ProductsController {
 
     @Autowired
     private ProductsRepository repository;
+
+    @Autowired
+    private CategoryRepository categoryRepository; // Adicionando o repositório da categoria
 
     @GetMapping
     public ResponseEntity<List<Products>> findAll() {
@@ -36,11 +41,17 @@ public class ProductsController {
             return ResponseEntity.status(428).build();
         }
 
+        // Buscando a categoria do banco de dados
+        Category category = categoryRepository.findById(dto.categoryId()) // A categoria agora vem do DTO
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"));
+
+        // Criando o produto e associando a categoria
         Products product = new Products();
         product.setNome(dto.nome());
-        product.setResumo(dto.descricao());
+        product.setDescricao(dto.descricao());
         product.setImageUrl(dto.imageUrl());
         product.setPreco(dto.preco());
+        product.setCategory(category);  // Associando a categoria ao produto
 
         this.repository.save(product);
         return ResponseEntity.ok(product);
@@ -61,13 +72,18 @@ public class ProductsController {
             return ResponseEntity.status(428).build();
         }
 
+        // Buscando a categoria do banco de dados
+        Category category = categoryRepository.findById(dto.categoryId()) // A categoria agora vem do DTO
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"));
+
         Products product = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não foi encontrado"));
 
         product.setNome(dto.nome());
-        product.setResumo(dto.descricao());
+        product.setDescricao(dto.descricao());
         product.setImageUrl(dto.imageUrl());
         product.setPreco(dto.preco());
+        product.setCategory(category);  // Atualizando a categoria associada ao produto
 
         this.repository.save(product);
         return ResponseEntity.ok(product);
@@ -78,7 +94,7 @@ public class ProductsController {
         Products product = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não foi encontrado"));
 
-        product.setResumo(resumo);
+        product.setDescricao(resumo);
         this.repository.save(product);
         return ResponseEntity.ok(product);
     }
