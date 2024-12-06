@@ -1,30 +1,40 @@
 package br.grupointegrado.movies.controller;
 
 import br.grupointegrado.movies.dto.CarrinhoDTO;
+import br.grupointegrado.movies.dto.ProdutoQuantidadeDTO;
 import br.grupointegrado.movies.model.Carrinho;
+import br.grupointegrado.movies.model.CarrinhoProduto;
+import br.grupointegrado.movies.model.CarrinhoProdutoId;
 import br.grupointegrado.movies.model.Products;
+import br.grupointegrado.movies.repository.CarrinhoProdutoRepository;
 import br.grupointegrado.movies.repository.CarrinhoRepository;
 import br.grupointegrado.movies.repository.ProductsRepository;
 import br.grupointegrado.movies.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/carrinhos")
 public class CarrinhoController {
 
-    @Autowired
-    private CarrinhoRepository carrinhoRepository;
+    private final CarrinhoRepository carrinhoRepository;
+    private final ProductsRepository productsRepository;
+    private final CarrinhoProdutoRepository carrinhoProdutoRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ProductsRepository productsRepository;
+    public CarrinhoController(CarrinhoRepository carrinhoRepository,
+                              ProductsRepository productsRepository,
+                              CarrinhoProdutoRepository carrinhoProdutoRepository,
+                              UserRepository userRepository) {
+        this.carrinhoRepository = carrinhoRepository;
+        this.productsRepository = productsRepository;
+        this.carrinhoProdutoRepository = carrinhoProdutoRepository;
+        this.userRepository = userRepository;
+    }
 
     // Criar um novo carrinho para o usuário com produtos
     @PostMapping
@@ -55,6 +65,39 @@ public class CarrinhoController {
                 carrinho.getUser().getId(),
                 carrinho.getProducts().stream().map(Products::getId).collect(Collectors.toList())
         ));
+    }
+
+    // Adicionar produtos ao carrinho
+    @PostMapping("/{carrinhoId}/produtos")
+    public ResponseEntity<String> addProductToCarrinho(
+            @PathVariable Long carrinhoId,
+            @RequestBody ProdutoQuantidadeDTO dto) {
+
+        // Verificar se o carrinho existe
+        Carrinho carrinho = carrinhoRepository.findById(carrinhoId)
+                .orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+
+        // Verificar se o produto existe
+        Products produto = productsRepository.findById(dto.produtoId())
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        // Criar ou atualizar o relacionamento no carrinho
+        CarrinhoProdutoId id = new CarrinhoProdutoId();
+        id.setCarrinhoId(carrinhoId);
+        id.setProdutoId(produto.getId());
+
+        CarrinhoProduto carrinhoProduto = carrinhoProdutoRepository.findById(id)
+                .orElse(new CarrinhoProduto());
+
+        carrinhoProduto.setId(id);
+        carrinhoProduto.setProduto(produto);
+        carrinhoProduto.setQuantidade(
+                Optional.ofNullable(carrinhoProduto.getQuantidade()).orElse(0) + dto.quantidade()
+        );
+
+        carrinhoProdutoRepository.save(carrinhoProduto);
+
+        return ResponseEntity.ok("Produto adicionado ao carrinho");
     }
 
     // Adicionar produtos a um carrinho existente

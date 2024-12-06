@@ -1,0 +1,139 @@
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Garante que a altura do body preencha toda a tela */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Cor de fundo suave */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+#navbar {
+    background-color: #333;
+    padding: 15px;
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#navbar ul li {
+    margin-right: 20px;
+}
+
+#navbar ul li a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#navbar ul li a:hover {
+    background-color: #575757;
+    color: #ffcc00;
+}
+
+/* Cabeçalho da página */
+h1 {
+    font-size: 28px;
+    text-align: center;
+    margin: 40px 0;
+    color: #333;
+}
+
+/* Formulário */
+#add-product-form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#add-product-form div {
+    margin-bottom: 20px;
+}
+
+#add-product-form label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+#add-product-form input,
+#add-product-form select,
+#add-product-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+#add-product-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+#add-product-form button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+#add-product-form button:hover {
+    background-color: #218838;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #add-product-form {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #navbar ul li {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    #add-product-form {
+        width: 100%;
+        padding: 15px;
+    }
+}

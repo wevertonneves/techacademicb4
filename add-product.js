@@ -47,7 +47,7 @@ document.getElementById('add-product-form')?.addEventListener('submit', async (e
 
     const productData = {
         nome: nome,
-        descricao: resumo,
+        resumo: resumo,
         imageUrl: imageUrl,
         preco: preco,
         categoryId: categoryId  // Enviar o id da categoria

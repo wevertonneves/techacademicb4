@@ -92,8 +92,12 @@ header h1 {
 
 /* Conteúdo principal */
 main {
-    flex: 1; /* Faz com que o conteúdo principal ocupe o espaço disponível */
-    padding: 40px 20px;
+    background-image: url('/images/background.jpg'); /* Substitua pelo caminho correto da imagem */
+    background-size: cover; /* A imagem irá cobrir toda a área do main */
+    background-position: center; /* A imagem será centralizada */
+    background-attachment: fixed; /* A imagem ficará fixa ao rolar a página */
+    height: 100vh; /* Ocupa a altura total da janela */
+    width: 100%; /* Ocupa toda a largura disponível */
 }
 
 #categories-container {
