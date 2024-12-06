@@ -1,1 +1,1 @@
-alter table movie add nota decimal(10,2);
+alter table Products add nota decimal(10,2);

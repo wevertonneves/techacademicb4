@@ -1,1 +1,1 @@
-alter table movie add resumo varchar(4000);
+alter table Products add resumo varchar(4000);

@@ -2,7 +2,6 @@ package br.grupointegrado.movies.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -16,12 +15,9 @@ public class Category {
     @Column(name = "name", length = 200)
     private String nome;
 
-    // mapeamento bi-direcional do ManyToOne, é o caminho reverso
-    // esse lado NÃO É OBRIGATÓRIO
-    // o mappedBy representa o nome do atributo NO JAVA
     @OneToMany(mappedBy = "category")
     @JsonIgnoreProperties({"category", "actors"})
-    private List<Movie> movies;
+    private List<Products> products;
 
     public Integer getId() {
         return id;
@@ -39,11 +35,11 @@ public class Category {
         this.nome = nome;
     }
 
-    public List<Movie> getMovies() {
-        return movies;
+    public List<Products> getProducts() {
+        return products;
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
+    public void setProducts(List<Products> products) {
+        this.products = products;
     }
 }

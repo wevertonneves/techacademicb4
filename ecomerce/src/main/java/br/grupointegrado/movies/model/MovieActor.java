@@ -18,7 +18,7 @@ public class MovieActor { // atuacao
     @MapsId("movieId")
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     @JsonIgnoreProperties("actors")
-    private Movie movie;
+    private Products movie;
 
     @ManyToOne
     @MapsId("actorId")
@@ -36,11 +36,11 @@ public class MovieActor { // atuacao
         this.id = id;
     }
 
-    public Movie getMovie() {
+    public Products getMovie() {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(Products movie) {
         this.movie = movie;
     }
 
