@@ -16,58 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `carrinho`
---
-
-DROP TABLE IF EXISTS `carrinho`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carrinho` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_user` (`user_id`),
-  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `carrinho`
---
-
-LOCK TABLES `carrinho` WRITE;
-/*!40000 ALTER TABLE `carrinho` DISABLE KEYS */;
-INSERT INTO `carrinho` VALUES (1,1),(2,2);
-/*!40000 ALTER TABLE `carrinho` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `carrinho_produtos`
---
-
-DROP TABLE IF EXISTS `carrinho_produtos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carrinho_produtos` (
-  `carrinho_id` bigint(20) NOT NULL,
-  `produto_id` int(11) NOT NULL,
-  PRIMARY KEY (`carrinho_id`,`produto_id`),
-  KEY `fk_produto` (`produto_id`),
-  CONSTRAINT `fk_carrinho` FOREIGN KEY (`carrinho_id`) REFERENCES `carrinho` (`id`),
-  CONSTRAINT `fk_produto` FOREIGN KEY (`produto_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `carrinho_produtos`
---
-
-LOCK TABLES `carrinho_produtos` WRITE;
-/*!40000 ALTER TABLE `carrinho_produtos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carrinho_produtos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `category`
 --
 
@@ -92,39 +40,6 @@ INSERT INTO `category` VALUES (1,'Eletronicos'),(2,'Perfumaria'),(3,'Livros'),(4
 UNLOCK TABLES;
 
 --
--- Table structure for table `flyway_schema_history`
---
-
-DROP TABLE IF EXISTS `flyway_schema_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `flyway_schema_history` (
-  `installed_rank` int(11) NOT NULL,
-  `version` varchar(50) DEFAULT NULL,
-  `description` varchar(200) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `script` varchar(1000) NOT NULL,
-  `checksum` int(11) DEFAULT NULL,
-  `installed_by` varchar(100) NOT NULL,
-  `installed_on` timestamp NOT NULL DEFAULT current_timestamp(),
-  `execution_time` int(11) NOT NULL,
-  `success` tinyint(1) NOT NULL,
-  PRIMARY KEY (`installed_rank`),
-  KEY `flyway_schema_history_s_idx` (`success`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `flyway_schema_history`
---
-
-LOCK TABLES `flyway_schema_history` WRITE;
-/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
-INSERT INTO `flyway_schema_history` VALUES (1,'1','create-table-products','SQL','V1__create-table-products.sql',1442228219,'root','2024-12-05 11:18:21',68,1);
-/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `products`
 --
 
@@ -142,7 +57,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`),
   KEY `fk_category` (`category_id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,39 +66,9 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Geladeira','Geladeira Consul Frost Free Duplex com Espaço Flex e Painel Eletrônico Externo 451 litros cor Inox - CRM56FK','https://consul.vtexassets.com/arquivos/ids/250383-1200-1200?v=638672113828830000&width=1200&height=1200&aspect=true',NULL,3324.00,1),(2,'Forno Microondas','Micro-ondas 25L Philco Receitas Pré-programadas 1100W PM26','https://philco.vtexassets.com/arquivos/ids/248242-1200-1200?v=638447434359600000&width=1200&height=1200&aspect=true',NULL,539.90,1),(3,'COCO MADEMOISELLE','COCO MADEMOISELLE Eau de Parfum é um perfume ambarado, uma fragrância enérgica e voluptuosa. Centelhas de laranja fresca e vibrante imediatamente despertam os sentidos. Um coração claro e sensual revela os acordes transparentes de jasmim e rosa. O rastro desdobra as nuances de patchouli e vetiver que enfatizam a estrutura esguia da composição.','https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_1020/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-9539148054558.jpg',NULL,1310.00,2),(4,'INVICTUS AQUA','INVICTUS AQUA, uma imersão intensa e exclusiva na poderosa essência marinha de Invictus. Disponível exclusivamente em rabanne.com.','https://medias.rabanne.com/cdn-cgi/image/width=480/https://medias.rabanne.com/medias/sys_master/images/h12/heb/10257255497758/10257255432222/10257255432222.jpg',NULL,589.00,2),(5,'Mares e oceanos: abra e descubra!','Mergulhe no mundo dos mares e oceanos com este livro lindamente ilustrado. Com mais de 50 janelas para levantar e descobrir os mais diversos tipos de habitat, desde recifes de corais até as gélidas águas do Ártico, e aprender sobre seus habitantes, incluindo aqueles que residem nas partes mais profundas dos oceanos.','https://m.media-amazon.com/images/I/71-5PvDG9pL._SL1000_.jpg',NULL,47.20,3),(6,'É assim que começa (Vol. 2 É assim que acaba) ','Lily Bloom continua administrando uma floricultura. Seu ex-marido abusivo, Ryle Kincaid, ainda é um    cirurgião. Mas agora os dois estão oficialmente divorciados e dividem a guarda da filha, Emerson.','https://m.media-amazon.com/images/I/81Izv2GRWoL._SL1500_.jpg',NULL,41.93,3),(7,'Chevrolet Onix 1.4 MPFI LT 8V FLEX 4P MANUAL','CHEVROLET ÔNIX 1..4 LT MANUAL 2015, PERÍCIA CAUTELAR APROVADA,Atendimento 100% Online','https://http2.mlstatic.com/D_NQ_NP_934328-MLB81165623709_122024-O.webp',NULL,47900.00,4),(8,'Volkswagen Gol 1.0 12v Trendline Total Flex 5p','Placa e chassi verificados,Sem roubos registrados,Sem participação em leilões','https://http2.mlstatic.com/D_NQ_NP_951069-MLB80869229856_122024-O.webp',NULL,36900.00,4),(9,'Lego Icons Tributo Ayrton Senna Mclaren Mp4/4 - 693 Pç 10330Lego Icons Tributo Ayrton Senna Mclaren Mp4/4 - 693 Pç 10330','A réplica do McLaren MP4/4 apresenta direção funcional, suspensão de haste, asa traseira ajustável, pneus slick, espelhos, câmbio de marchas e motor V6 turboalimentado detalhado, além de expositor e placa informativa com estatísticas interessantes.','https://http2.mlstatic.com/D_NQ_NP_2X_878213-MLU74804465242_032024-F.webp',NULL,641.45,5),(10,'Atentu Patinete Infantil 8 a 13 anos 103x85cm preto e dobrável','Com seu patinete da ATENTU KIDS você desfrutará de momentos inesquecíveis. Você poderá se mover facilmente e chegar a qualquer lugar. É ideal para uso como meio de transporte alternativo.','https://http2.mlstatic.com/D_NQ_NP_2X_822212-MLU77732710635_072024-F.webp',NULL,215.00,5),(11,'Creatina Monohidratada em Pote 3000mg 100% Pura Dark Lab','Dark Lab é uma renomada empresa internacional, agraciada com múltiplos prêmios por sua busca incessante pela excelência na pureza. Revolucionando o mercado de suplementação ao introduzir inovação de maneiras inéditas. Com abordagem pioneira se baseia na utilização exclusiva de matérias-primas importadas, cuidadosamente selecionadas por sua qualidade insuperável.','https://http2.mlstatic.com/D_NQ_NP_2X_919767-MLU77243399105_062024-F.webp',NULL,50.59,6),(12,'100% Whey Protein Proteína Refil 900g - Dark Lab Sabor Morango','A 100% Whey Protein é o suplemento alimentar ideal para quem busca um corpo saudável e definido. Com Proteína concentrada do soro de leite como principal componente, oferece 21g de proteína por dose, 8,6g de aminoácidos essenciais e 4,2g de BCAA. O Whey Protein Concentrado passa por um processo de filtragem que concentra as proteínas e remove carboidratos e gorduras, sendo muito utilizado por atletas e praticantes de atividades físicas para auxiliar no ganho de massa muscular, recuperação e fortalecimento do sistema imunológico.','https://http2.mlstatic.com/D_NQ_NP_2X_625497-MLU74682852588_022024-F.webp',NULL,117.83,NULL);
+INSERT INTO `products` VALUES (1,'Geladeira','Geladeira Consul Frost Free Duplex com Espaço Flex e Painel Eletrônico Externo 451 litros cor Inox - CRM56FK','https://consul.vtexassets.com/arquivos/ids/250383-1200-1200?v=638672113828830000&width=1200&height=1200&aspect=true',NULL,3324.00,1),(2,'Forno Microondas','Micro-ondas 25L Philco Receitas Pré-programadas 1100W PM26','https://philco.vtexassets.com/arquivos/ids/248242-1200-1200?v=638447434359600000&width=1200&height=1200&aspect=true',NULL,539.90,1),(3,'COCO MADEMOISELLE','COCO MADEMOISELLE Eau de Parfum é um perfume ambarado, uma fragrância enérgica e voluptuosa. Centelhas de laranja fresca e vibrante imediatamente despertam os sentidos. Um coração claro e sensual revela os acordes transparentes de jasmim e rosa. O rastro desdobra as nuances de patchouli e vetiver que enfatizam a estrutura esguia da composição.','https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_1020/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-9539148054558.jpg',NULL,1310.00,2),(4,'INVICTUS AQUA','INVICTUS AQUA, uma imersão intensa e exclusiva na poderosa essência marinha de Invictus. Disponível exclusivamente em rabanne.com.','https://medias.rabanne.com/cdn-cgi/image/width=480/https://medias.rabanne.com/medias/sys_master/images/h12/heb/10257255497758/10257255432222/10257255432222.jpg',NULL,589.00,2),(5,'Mares e oceanos: abra e descubra!','Mergulhe no mundo dos mares e oceanos com este livro lindamente ilustrado. Com mais de 50 janelas para levantar e descobrir os mais diversos tipos de habitat, desde recifes de corais até as gélidas águas do Ártico, e aprender sobre seus habitantes, incluindo aqueles que residem nas partes mais profundas dos oceanos.','https://m.media-amazon.com/images/I/71-5PvDG9pL._SL1000_.jpg',NULL,47.20,3),(6,'É assim que começa (Vol. 2 É assim que acaba) ','Lily Bloom continua administrando uma floricultura. Seu ex-marido abusivo, Ryle Kincaid, ainda é um    cirurgião. Mas agora os dois estão oficialmente divorciados e dividem a guarda da filha, Emerson.','https://m.media-amazon.com/images/I/81Izv2GRWoL._SL1500_.jpg',NULL,41.93,3),(7,'Chevrolet Onix 1.4 MPFI LT 8V FLEX 4P MANUAL','CHEVROLET ÔNIX 1..4 LT MANUAL 2015, PERÍCIA CAUTELAR APROVADA,Atendimento 100% Online','https://http2.mlstatic.com/D_NQ_NP_934328-MLB81165623709_122024-O.webp',NULL,47900.00,4),(8,'Volkswagen Gol 1.0 12v Trendline Total Flex 5p','Placa e chassi verificados,Sem roubos registrados,Sem participação em leilões','https://http2.mlstatic.com/D_NQ_NP_951069-MLB80869229856_122024-O.webp',NULL,36900.00,4),(9,'Lego Icons Tributo Ayrton Senna Mclaren Mp4/4 - 693 Pç 10330Lego Icons Tributo Ayrton Senna Mclaren Mp4/4 - 693 Pç 10330','A réplica do McLaren MP4/4 apresenta direção funcional, suspensão de haste, asa traseira ajustável, pneus slick, espelhos, câmbio de marchas e motor V6 turboalimentado detalhado, além de expositor e placa informativa com estatísticas interessantes.','https://http2.mlstatic.com/D_NQ_NP_2X_878213-MLU74804465242_032024-F.webp',NULL,641.45,5),(10,'Atentu Patinete Infantil 8 a 13 anos 103x85cm preto e dobrável','Com seu patinete da ATENTU KIDS você desfrutará de momentos inesquecíveis. Você poderá se mover facilmente e chegar a qualquer lugar. É ideal para uso como meio de transporte alternativo.','https://http2.mlstatic.com/D_NQ_NP_2X_822212-MLU77732710635_072024-F.webp',NULL,215.00,5),(11,'Creatina Monohidratada em Pote 3000mg 100% Pura Dark Lab','Dark Lab é uma renomada empresa internacional, agraciada com múltiplos prêmios por sua busca incessante pela excelência na pureza. Revolucionando o mercado de suplementação ao introduzir inovação de maneiras inéditas. Com abordagem pioneira se baseia na utilização exclusiva de matérias-primas importadas, cuidadosamente selecionadas por sua qualidade insuperável.','https://http2.mlstatic.com/D_NQ_NP_2X_919767-MLU77243399105_062024-F.webp',NULL,50.59,6),(12,'100% Whey Protein Proteína Refil 900g - Dark Lab Sabor Morango','A 100% Whey Protein é o suplemento alimentar ideal para quem busca um corpo saudável e definido. Com Proteína concentrada do soro de leite como principal componente, oferece 21g de proteína por dose, 8,6g de aminoácidos essenciais e 4,2g de BCAA. O Whey Protein Concentrado passa por um processo de filtragem que concentra as proteínas e remove carboidratos e gorduras, sendo muito utilizado por atletas e praticantes de atividades físicas para auxiliar no ganho de massa muscular, recuperação e fortalecimento do sistema imunológico.','https://http2.mlstatic.com/D_NQ_NP_2X_625497-MLU74682852588_022024-F.webp',NULL,117.83,6),(13,'Ar Condicionado Split 9000 BTUs Frio Branco 220V ','Com um ciclo frio para deixar o calor do lado de fora e sua capacidade de 9.000 BTUs que climatiza um ambiente de até 12m² tranquilamente. Com a tecnologia atual Ar Condicionado Air Volution da Midea oferece alta eficiência energética.','https://cdn.leroymerlin.com.br/products/ar_condicionado_frio_9000_btus_branco_220v_air_volution_midea_3213680244_5415_600x600.jpg',NULL,1949.00,1),(14,'Impressora Jato de Tinta Epson EcoTank L1250','Baixo custo de impressão: imprime até 4.500 páginas em preto ou 7.500 páginas coloridas1 com um kit de garrafas de tinta de reposição originais Epson, Confiabilidade e performance incomparáveis: a tecnologia MicroPiezo Heat-Free da Epson garante longa vida ao equipamento, além de impressões sem aquecimento em alta performance e maior qualidade.','https://images0.kabum.com.br/produtos/fotos/magalu/400610/Impressora-Tanque-de-Tinta-Epson-Wi-Fi_1668687640_g.jpg',NULL,863.10,1),(15,'Desodorante Colonia Malbec Boticario 100ml','Desodorante Colonia Malbec Boticario 100ml ','https://acdn.mitiendanube.com/stores/002/027/285/products/desodorante-colonia-malbec-boticario-d0552e5875c01fca5517009235653954-1024-1024.webp',NULL,199.99,2),(16,'Coffee Addictive Oriental Frutal Desodorante Colônia 100ml','Coffee Addictive Oriental Frutal Desodorante Colônia 100ml','https://res.cloudinary.com/beleza-na-web/image/upload/w_1500,f_auto,fl_progressive,q_auto:eco,w_800/v1/imagens/product/B56385/7068b143-3df5-4a50-81f6-f288d4bd12f9-bot-56385-coffee-addictive-feminino-colonia-frontal-01.jpg',NULL,199.99,2),(17,'Hábitos Atômicos:','Não importa quais sejam seus objetivos, Hábitos Atômicos oferece um método eficaz para você se aprimorar ― todos os dias. James Clear, um dos mais expoentes especialistas na criação de hábitos, revela as estratégicas práticas que o ensinarão, exatamente, como criar bons hábitos, abandonar os maus e fazer pequenas mudanças de comportamento que levam a resultados impressionantes.','https://m.media-amazon.com/images/I/81eT2pjx4jL._SL1500_.jpg',NULL,39.59,3),(18,'A rainha traidora','ara é uma rainha traidora. Ao compartilhar informações secretas sobre a defesa de Ithicana, a jovem não só quebrou a confiança de seu povo como possibilitou que a ponte fosse dominada pelo rei de Maridrina, seu pai. Em exílio, Lara se sente impotente diante de tanta morte e destruição, mas quando descobre que seu marido, Aren, foi capturado em batalha, ela decide fazer de tudo para se redimir — e salvar o homem por quem se apaixonou perdidamente.','https://m.media-amazon.com/images/I/91k6XjPBLoL._SL1500_.jpg',NULL,79.90,3),(19,'Toyota Corolla 2.0 XEI 16V FLEX 4P AUTOMÁTICO','TOYOTA COROLLA,Codigo: 330898,Ano/Modelo: 2018/2018,Cor: Cinza','https://http2.mlstatic.com/D_NQ_NP_2X_832974-MLB80366131108_112024-F.webp',NULL,100000.00,4),(20,'BMW X1 2.0 Sdrive20i X-line Active Flex 5p','BMW X1 2.0 ACTIVEFLEX, 2017/2018, 80.000KM','https://http2.mlstatic.com/D_NQ_NP_750444-MLB80868466228_122024-O.webp',NULL,131900.00,4),(21,'Piscina Inflável Redonda 3400 Litros Fun MorPiscina Inflável Redonda 3400 Litros Fun Mor','Com a Piscina Inflável MOR você curte a estação mais animada do ano com muita diversão. Ela tem capacidade para 3.400 litros em formato circular, é feita em lona de PVC reforçada com laminado duplo e uma trama de poliéster entre as lâminas.','https://http2.mlstatic.com/D_NQ_NP_2X_918475-MLU73774988697_012024-F.webp',NULL,317.20,5),(22,'Microsoft Xbox Series S 512gb Standard Cor BrancoMicrosoft Xbox Series S 512gb Standard Cor Branco','A nova geração de consoles é liderada pelo Xbox Series S, que chegou ao mercado para impressionar a todos. Sua potência e alto desempenho permitem reduzir significativamente o tempo de carregamento de jogos e conteúdo em comparação com outros consoles. Além disso, oferece a possibilidade de jogar por horas enquanto se diverte com jogadores ao redor do mundo.','https://http2.mlstatic.com/D_NQ_NP_2X_906664-MLU78666856504_092024-F.webp',NULL,2517.50,5),(23,'Lubrificantes Kit 17 Tipos Açoes Prazer Completo Casal Top','Contém Produtos e Geis Lubrificantes íntimos com Funções Super Picantes','https://http2.mlstatic.com/D_NQ_NP_751162-MLB77972427922_082024-O.webp',NULL,56.81,6),(24,'Esteira Elétrica Athletic Walker 10 Km/h Bivolt Residencial Cor Preto 110V/220V','A Esteira Ergométrica Athletic Walker é uma esteira compacta e completa, entrega uma versatilidade de 7 funções no monitor.','https://http2.mlstatic.com/D_NQ_NP_2X_973175-MLU77933297094_082024-F.webp',NULL,2790.00,6);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'weverton','wevertonneves2010@hotmail.com','44997577975'),(2,'tiao','tiao@hotmail.com','00000000');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'ecomerc'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -194,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-05  9:06:39
+-- Dump completed on 2024-12-06 15:45:55
