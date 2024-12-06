@@ -1,0 +1,199 @@
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Garante que a altura do body preencha toda a tela */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    display: flex;
+    flex-direction: column; /* Permite posicionar os elementos em coluna */
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333; /* Cor da navbar */
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título da página */
+header h1 {
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+/* Navbar */
+#navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+#navbar ul li {
+    display: inline;
+}
+
+#navbar ul li a {
+    color: #fff; /* Cor padrão dos itens da navbar */
+    font-size: 16px;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Efeito hover para os itens da navbar */
+#navbar ul li a:hover {
+    color: yellow; /* Cor amarela ao passar o mouse */
+    background-color: #333; /* Mantenha o fundo escuro ao passar o mouse */
+}
+
+/* Botões da navbar */
+.navbar-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: black; /* Cor de fundo preta */
+    border: none; /* Remove a borda */
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    color: white;
+}
+
+/* Efeito hover para os botões na navbar */
+.navbar-button:hover {
+    background-color: yellow; /* Altera para amarelo ao passar o mouse */
+    color: black;
+}
+
+/* Conteúdo principal */
+main {
+    flex: 1; /* Faz com que o conteúdo principal ocupe o espaço disponível */
+    padding: 40px 20px;
+}
+
+#categories-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.category {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.category img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.category h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.category p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.category button {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category button:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333; /* Cor igual à navbar */
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0; /* Garante que o footer não encolha */
+    margin-top: auto;
+}
+
+/* Ícones do Font Awesome no footer */
+footer .logo i {
+    font-size: 28px; /* Aumenta o tamanho dos ícones */
+    margin: 0 10px; /* Espaçamento entre os ícones */
+    transition: color 0.3s;
+}
+
+/* Hover nos ícones do footer */
+footer .logo i:hover {
+    color: yellow; /* Cor amarela ao passar o mouse nos ícones */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-buttons {
+        margin-top: 15px;
+    }
+
+    #categories-container {
+        grid-template-columns: 1fr;
+    }
+
+    .category {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+    }
+

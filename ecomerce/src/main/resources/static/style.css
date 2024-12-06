@@ -141,6 +141,55 @@ main {
     background-color: #218838;
 }
 
+/* Página do carrinho */
+#carrinho {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#carrinho h1 {
+    font-size: 2rem;
+    color: #0077cc;
+    margin-bottom: 20px;
+}
+
+/* Lista de produtos do carrinho */
+#carrinho-lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+#carrinho-lista li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do botão de finalizar compra */
+#finalizar-compra {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#finalizar-compra:hover {
+    background-color: #218838;
+}
+
 /* Rodapé */
 footer {
     text-align: center;
@@ -173,5 +222,13 @@ footer {
     main {
         max-width: 100%;
         padding: 15px;
+    }
+
+    #carrinho {
+        padding: 15px;
+    }
+
+    #finalizar-compra {
+        font-size: 1rem;
     }
 }

@@ -3,7 +3,6 @@ package br.grupointegrado.movies.controller;
 import br.grupointegrado.movies.dto.CarrinhoDTO;
 import br.grupointegrado.movies.model.Carrinho;
 import br.grupointegrado.movies.model.Products;
-import br.grupointegrado.movies.model.User;
 import br.grupointegrado.movies.repository.CarrinhoRepository;
 import br.grupointegrado.movies.repository.ProductsRepository;
 import br.grupointegrado.movies.repository.UserRepository;
@@ -59,29 +58,18 @@ public class CarrinhoController {
     }
 
     // Adicionar produtos a um carrinho existente
-    @PutMapping("/{userId}/add-products")
+    @PutMapping("/{id}/add-products")
     public ResponseEntity<CarrinhoDTO> addProductsToCarrinho(
-            @PathVariable Long userId,
+            @PathVariable Long id,
             @RequestBody List<Integer> productIds) {
 
-        // Buscar o carrinho do usuário ou criar um novo se não existir
-        Carrinho carrinho = carrinhoRepository.findByUserId(userId)
-                .orElseGet(() -> {
-                    // Criar um novo carrinho se não existir
-                    Carrinho newCarrinho = new Carrinho();
-                    User user = userRepository.findById(userId)
-                            .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado."));
-                    newCarrinho.setUser(user);
-                    return carrinhoRepository.save(newCarrinho);  // Salvar novo carrinho
-                });
+        Carrinho carrinho = carrinhoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Carrinho não encontrado."));
 
-        // Buscar os produtos a serem adicionados
         List<Products> products = productsRepository.findAllById(productIds);
         carrinho.getProducts().addAll(products);
 
-        // Salvar o carrinho com os novos produtos
         carrinho = carrinhoRepository.save(carrinho);
-
         return ResponseEntity.ok(new CarrinhoDTO(
                 carrinho.getId(),
                 carrinho.getUser().getId(),
@@ -97,5 +85,31 @@ public class CarrinhoController {
 
         carrinhoRepository.delete(carrinho);
         return ResponseEntity.ok("Carrinho com ID " + id + " foi excluído com sucesso.");
+    }
+
+    // Excluir um produto específico do carrinho
+    @PutMapping("/{id}/remove-product")
+    public ResponseEntity<CarrinhoDTO> removeProductFromCarrinho(
+            @PathVariable Long id,
+            @RequestBody Integer productId) {
+
+        Carrinho carrinho = carrinhoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Carrinho não encontrado."));
+
+        Products product = productsRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
+
+        if (carrinho.getProducts().contains(product)) {
+            carrinho.getProducts().remove(product);
+            carrinho = carrinhoRepository.save(carrinho);
+        } else {
+            return ResponseEntity.status(404).body(null); // Produto não encontrado no carrinho
+        }
+
+        return ResponseEntity.ok(new CarrinhoDTO(
+                carrinho.getId(),
+                carrinho.getUser().getId(),
+                carrinho.getProducts().stream().map(Products::getId).collect(Collectors.toList())
+        ));
     }
 }

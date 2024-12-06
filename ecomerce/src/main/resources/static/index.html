@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Categories</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ECOMMERC</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Link do Font Awesome para ícones -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <h1>Product Categories</h1>
+    <h1><a href="index.html" style="color: inherit; text-decoration: none;">Ecomerc Trabalho B4</a></h1>
     <nav id="navbar">
         <ul>
             <!-- As categorias serão carregadas aqui -->
@@ -17,20 +19,42 @@
     <div id="user-info">
         <!-- Aqui aparecerá o nome do usuário logado ou o botão de login -->
     </div>
+    <!-- Adicionando os botões no cabeçalho -->
+    <div class="header-buttons">
+        <button class="navbar-button" id="add-product-btn">Adicionar Produto</button>
+        <button class="navbar-button" onclick="window.location.href='carrinho.html'">Ir para o Carrinho</button>
+        <button class="navbar-button" onclick="window.location.href='cadastro.html'">Cadastrar Novo Usuário</button>
+    </div>
 </header>
 
 <main>
     <div id="categories-container">
         <!-- Categorias e produtos serão carregados aqui -->
     </div>
-    <!-- Botão para redirecionar à página de adicionar produtos -->
-    <button id="add-product-btn">Adicionar Produto</button>
 </main>
 
-<footer>
-    <p>Product App © 2024</p>
+<!-- Novo footer adicionado -->
+<footer class="footer" data-aos="fade">
+    <p class="text-center">
+        <strong>TechAcademic4: Todos os Direitos Reservados.</strong>
+    </p>
+    <p class="text-center">
+        Entre em contato através das nossas redes sociais.
+    </p>
+    <p class="text-center logo">
+        <a href="https://www.facebook.com/weverton.thiago.165" title="facebook" class="buttonawe">
+            <i class="fa-brands fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/weverton.thiago.165/" title="Instagram" class="buttonawe">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://x.com/WevertonThiag16?t=yzN8XMKJSxEzH0oQxKaWYQ&s=09" title="Twitter" class="buttonawe">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+    </p>
 </footer>
 
 <script src="index.js"></script>
+<script src="carousel.js"></script> <!-- Novo script do carrossel -->
 </body>
 </html>
